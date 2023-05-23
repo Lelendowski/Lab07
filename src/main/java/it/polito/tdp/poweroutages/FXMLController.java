@@ -5,6 +5,7 @@
 package it.polito.tdp.poweroutages;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import it.polito.tdp.poweroutages.model.Model;
 import it.polito.tdp.poweroutages.model.Nerc;
@@ -39,6 +40,10 @@ public class FXMLController {
     @FXML
     void doRun(ActionEvent event) {
     	txtResult.clear();
+    	Nerc n = cmbNerc.getValue();
+    	int ore = Integer.parseInt(txtHours.getText());
+    	int anni = Integer.parseInt(txtYears.getText());
+    	txtResult.setText(model.chiamaRicorsione(n, ore, anni));
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -54,5 +59,8 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	for(Nerc n: model.getNercList()) {
+    		cmbNerc.getItems().add(n);
+    	}
     }
 }
